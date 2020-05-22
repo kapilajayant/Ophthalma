@@ -147,10 +147,6 @@ const SignInScreen = ({navigation})  =>{
                 }
                 </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-                <LinearGradient
-                    colors={['#3cecbe', '#01ab9d']}
-                    style={styles.signIn}>
                     <TouchableOpacity onPress={()=>
                         {
                             // navigation.navigate('Home')
@@ -166,10 +162,12 @@ const SignInScreen = ({navigation})  =>{
                             })
                         }
                         }>
-                        <Text style={[styles.textSign, {color:'#fff'}]}>Sign In</Text>
+                        <LinearGradient
+                            colors={['#3cecbe', '#01ab9d']}
+                            style={styles.signIn}>
+                            <Text style={[styles.textSign, {color:'#fff'}]}>Sign In</Text>
+                        </LinearGradient>
                     </TouchableOpacity>
-                </LinearGradient>
-            </View>
             <TouchableOpacity
                 onPress={() => navigation.navigate('SignUpScreen')}
                 style={[styles.signIn, {
@@ -235,7 +233,9 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        marginTop: 50
+        marginTop: 50,
+        width:120,
+        flexDirection:'row',
     },
     signIn: {
         width: '100%',
