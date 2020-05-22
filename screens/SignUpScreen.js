@@ -203,25 +203,23 @@ const SignUpScreen = ({navigation})  =>{
                 }
                 </TouchableOpacity>
             </View>
-            <View style={styles.button}>
+            <TouchableOpacity onPress={()=>
+            {
+                firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
+                .then(()=>{
+                    navigation.replace("Home")
+                })
+                .catch(error=>{
+                    Alert.alert(error.message)
+                })
+            }
+                }>
                 <LinearGradient
                     colors={['#3cecbe', '#01ab9d']}
                     style={styles.signIn}>
-                    <TouchableOpacity onPress={()=>
-                    {
-                        firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
-                        .then(()=>{
-                            navigation.replace("Home")
-                        })
-                        .catch(error=>{
-                            Alert.alert(error.message)
-                        })
-                    }
-                        }>
-                        <Text style={[styles.textSign, {color:'#fff'}]}>Sign Up</Text>
-                    </TouchableOpacity>
+                    <Text style={[styles.textSign, {color:'#fff'}]}>Sign Up</Text>
                 </LinearGradient>
-            </View>
+            </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => navigation.goBack()}
                 style={[styles.signIn, {
