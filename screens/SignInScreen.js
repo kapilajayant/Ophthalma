@@ -29,7 +29,17 @@ import {firebaseConfig} from '../config';
 
 const SignInScreen = ({navigation})  =>{
 
-    
+    React.useEffect(()=>{
+        firebase.auth().onAuthStateChanged(
+            user=>{
+                if(user){
+                  navigation.replace('Home')
+                }
+            }
+        )
+    }
+    );
+
     const [data, setData] = React.useState(
         {
             email:'',

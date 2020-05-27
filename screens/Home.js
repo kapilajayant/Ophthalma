@@ -40,7 +40,6 @@ const Home = ({navigation}) => {
     // }
     // );
 
-
     return(
         <View style={styles.text}>
             <Text>Welcome User {firebase.auth().currentUser.email}</Text>

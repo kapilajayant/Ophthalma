@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, createSwitchNavigator } from '@react-navigation/stack';
 
 import SplashScreen from './SplashScreen';
 import SignInScreen from './SignInScreen';
@@ -17,5 +17,6 @@ const RootStackScreen = ({navigation}) => (
         <RootStack.Screen name="Home" component={Home}/>
     </RootStack.Navigator>
 );
+
 
 export default RootStackScreen;
