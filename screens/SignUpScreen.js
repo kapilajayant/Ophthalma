@@ -21,6 +21,7 @@ import * as Animatable from 'react-native-animatable';
 import { exp } from 'react-native-reanimated';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import Toast from 'react-native-simple-toast';
 
 import * as firebase from 'firebase';
 import {firebaseConfig} from '../config';
@@ -31,6 +32,7 @@ const SignUpScreen = ({navigation})  =>{
         {
             email:'',
             password:'',
+            confirmPassword:'',
             check_textInputChange:false,
             secureTextEntry:true,
             confirm_secureTextEntry:true
@@ -63,6 +65,13 @@ const SignUpScreen = ({navigation})  =>{
         setData({
             ...data,
             password:val,
+        })
+    }
+
+    const handleConfirmPasswordChange = (val)=>{
+        setData({
+            ...data,
+            confirmPassword:val,
         })
     }
 
@@ -176,11 +185,12 @@ const SignUpScreen = ({navigation})  =>{
                     secureTextEntry={data.confirm_secureTextEntry?true:false}
                     style={styles.textInput}
                     autoCapitalize="none"
-                    onChangeText = { (val) =>{handlePasswordChange(val)} }
+                    onChangeText = { (val) =>{handleConfirmPasswordChange(val)} }
                 />
                 <TouchableOpacity
                 onPress={updateConfirmSecureTextEntry}>
-                {data.confirm_secureTextEntry?
+                {data.confirm_secureTextEntry
+                ?
                 <Animatable.View
                 animation="bounceIn"
                 >
@@ -205,13 +215,20 @@ const SignUpScreen = ({navigation})  =>{
             </View>
             <TouchableOpacity onPress={()=>
             {
-                firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
-                .then(()=>{
-                    navigation.replace("Home")
-                })
-                .catch(error=>{
-                    Alert.alert(error.message)
-                })
+                if(data.password == data.confirmPassword)
+                {
+                    firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
+                    .then(()=>{
+                        navigation.replace("Home")
+                    })
+                    .catch(error=>{
+                        Alert.alert(error.message)
+                    })
+                }
+                else
+                {
+                    Alert.alert(data.password+data.confirmPassword)
+                }
             }
                 }>
                 <LinearGradient
